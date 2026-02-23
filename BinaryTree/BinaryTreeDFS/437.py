@@ -10,22 +10,28 @@ class TreeNode:
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
         self.count = 0
-        self.dfs(root, targetSum, [])
+        self.dfs(root, targetSum)
         return self.count
-    def dfs(self,  root: Optional[TreeNode], targetSum: int, path: list):
+    def dfs2(self, root: Optional[TreeNode], targetSum: int):
+        return
+    def dfs(self,  root: Optional[TreeNode], targetSum: int):
         if not root:
-            return False
-        path.append(root.val)
-        if sum(path) == targetSum:
-            self.count+=1
-            path.pop(0)
-        elif sum(path) > targetSum:
-            path.pop(0)
-        if root.left:
-            self.dfs(root.left, targetSum, path)
+            return 
+        self.test(root, targetSum)
         if root.right:
-            self.dfs(root.right, targetSum, path)
-        
+            self.dfs(root.right, targetSum)
+        if root.left:
+            self.dfs(root.left, targetSum)
+    def test(self, root: Optional[TreeNode], targetSum: int):
+        if not root:
+            return 
+        targetSum -= root.val
+        if targetSum == 0:
+            self.count += 1
+        if root.right:
+            self.test(root.right, targetSum)
+        if root.left:
+            self.test(root.left, targetSum)
     
         
 
