@@ -10,10 +10,20 @@ class TreeNode:
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
         self.count = 0
-        self.dfs(root, targetSum)
+        cache = {0:1}
+        #self.dfs(root, targetSum)
+        self.dfs2(root, targetSum, 0, cache)
         return self.count
-    def dfs2(self, root: Optional[TreeNode], targetSum: int):
-        return
+    def dfs2(self, root: Optional[TreeNode], targetSum: int, currentSum: int, cache: dict):
+        if root is None:
+            return
+        currentSum += root.val
+        oldSum = currentSum - targetSum
+        self.count += cache.get(oldSum, 0)
+        cache[currentSum] = cache.get(currentSum, 0) + 1
+        self.dfs2(root.left, targetSum, currentSum, cache)
+        self.dfs2(root.right, targetSum, currentSum, cache)
+        cache[currentSum] -= 1
     def dfs(self,  root: Optional[TreeNode], targetSum: int):
         if not root:
             return 
