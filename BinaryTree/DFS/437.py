@@ -14,6 +14,7 @@ class Solution:
         #self.dfs(root, targetSum)
         self.dfs2(root, targetSum, 0, cache)
         return self.count
+    #Prefix sum approach
     def dfs2(self, root: Optional[TreeNode], targetSum: int, currentSum: int, cache: dict):
         if root is None:
             return
@@ -24,6 +25,7 @@ class Solution:
         self.dfs2(root.left, targetSum, currentSum, cache)
         self.dfs2(root.right, targetSum, currentSum, cache)
         cache[currentSum] -= 1
+    #dfs approach/brute force
     def dfs(self,  root: Optional[TreeNode], targetSum: int):
         if not root:
             return 
