@@ -10,37 +10,30 @@ class TreeNode:
         self.right = right
 class Solution:
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
-        node = self.findNode(root, key)
-        self.fixNode(node)
+        root = self.findNode(root, key)
+        return root
+    def findSuccessor(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        root = root.right
+        while root is not None and root.left is not None:
+            root = root.left
         return root
     def findNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         if root is None:
             return None
-        if root.val == key:
-            return root
         elif root.val > key:
-            return self.findNode(root.left, key)
+            root.left = self.findNode(root.left, key)
+        elif root.val < key:
+            root.right = self.findNode(root.right, key)
         else:
-            return self.findNode(root.right, key)
-    def findSuccessor(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if root is not None:
-            root = root.right
-        while root is not None and root.left is not None:
-            root = root.left
-        return root
-    def fixNode(self, root: Optional[TreeNode]):
-        if root is None:
-            return None
-        elif root.left is None and root.right is None:
-            return None
-        elif root.left and not root.right:
-            root = root.left
-        elif root.right and not root.left:
-            root = root.right
-        else:
+            if root.left is None:
+                return root.right
+            if root.right is None:
+                return root.left
             suc = self.findSuccessor(root)
             root.val = suc.val
-            root.right = self.fixNode(root.right)        
+            root.right = self.findNode(root.right, suc.val)
+        return root
+
         
         
         
