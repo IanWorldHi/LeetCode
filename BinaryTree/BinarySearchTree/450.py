@@ -23,7 +23,8 @@ class Solution:
         else:
             return self.findNode(root.right, key)
     def findSuccessor(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        root = root.right
+        if root is not None:
+            root = root.right
         while root is not None and root.left is not None:
             root = root.left
         return root
