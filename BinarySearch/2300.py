@@ -27,6 +27,10 @@ class Solution:
             else:
                 right = mid-1
         return -1
+    def countingSortPrefixSum(self, potions, spell, success) -> List[int]:
+        
+        return []
+
         
         
 
